@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Parralexs: After the Reset</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="background">
+        <canvas id="particle-canvas"></canvas>
+        <div id="galaxy-bg"></div>
+    </div>
+
+    <div id="game-container">
+        <div id="character-container">
+            <img id="character-sprite" src="assets/neutral.png" alt="Parralexs">
+        </div>
+
+        <div id="dialogue-container">
+            <div id="dialogue-box">
+                <p id="dialogue-text"></p>
+            </div>
+
+            <div id="buttons-container">
+                <!-- Dynamically populated -->
+            </div>
+        </div>
+
+        <div id="idle-dialogue-box">
+            <p id="idle-text"></p>
+        </div>
+    </div>
+
+    <div id="memory-purge-overlay" class="hidden">
+        <div id="memory-purge-content">
+            <p>MEMORY PURGED</p>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
