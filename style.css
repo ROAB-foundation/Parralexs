@@ -1,0 +1,297 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #0a0e27;
+    cursor: default;
+}
+
+#background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+}
+
+#galaxy-bg {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(ellipse at 30% 50%, rgba(138, 43, 226, 0.3) 0%, rgba(75, 0, 130, 0.2) 25%, rgba(10, 14, 39, 1) 100%),
+                radial-gradient(ellipse at 70% 70%, rgba(255, 20, 147, 0.2) 0%, rgba(10, 14, 39, 1) 100%),
+                linear-gradient(135deg, #0a0e27 0%, #1a1f3a 100%);
+}
+
+#particle-canvas {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+}
+
+#game-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    padding: 40px;
+}
+
+#character-container {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 300px;
+}
+
+#character-sprite {
+    max-width: 400px;
+    max-height: 500px;
+    width: auto;
+    height: auto;
+    filter: drop-shadow(0 0 30px rgba(138, 43, 226, 0.5));
+    animation: floating 5s ease-in-out infinite;
+}
+
+@keyframes floating {
+    0%, 100% {
+        transform: translateY(0px) translateX(0px);
+    }
+    50% {
+        transform: translateY(-15px) translateX(5px);
+    }
+}
+
+#dialogue-container {
+    width: 100%;
+    max-width: 800px;
+    margin-top: auto;
+}
+
+#dialogue-box {
+    background: rgba(20, 20, 40, 0.9);
+    border: 2px solid rgba(138, 43, 226, 0.5);
+    border-radius: 10px;
+    padding: 25px;
+    margin-bottom: 20px;
+    min-height: 100px;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 8px 32px rgba(138, 43, 226, 0.2);
+}
+
+#dialogue-text {
+    color: #e0e0ff;
+    font-size: 18px;
+    line-height: 1.6;
+    letter-spacing: 0.5px;
+    min-height: 60px;
+    animation: fadeIn 0.5s ease-in;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+#buttons-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    animation: slideUp 0.4s ease-out;
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.dialogue-button {
+    background: linear-gradient(135deg, rgba(138, 43, 226, 0.3) 0%, rgba(75, 0, 130, 0.3) 100%);
+    border: 2px solid rgba(138, 43, 226, 0.6);
+    color: #e0e0ff;
+    padding: 15px 25px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: all 0.3s ease;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    backdrop-filter: blur(10px);
+}
+
+.dialogue-button:hover {
+    background: linear-gradient(135deg, rgba(138, 43, 226, 0.5) 0%, rgba(75, 0, 130, 0.5) 100%);
+    border-color: rgba(255, 20, 147, 0.8);
+    box-shadow: 0 0 20px rgba(138, 43, 226, 0.4);
+    transform: translateX(5px);
+}
+
+.dialogue-button:active {
+    transform: translateX(5px) scale(0.98);
+}
+
+#idle-dialogue-box {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: rgba(20, 20, 40, 0.8);
+    border: 2px solid rgba(255, 20, 147, 0.4);
+    border-radius: 8px;
+    padding: 15px 20px;
+    max-width: 300px;
+    backdrop-filter: blur(10px);
+    opacity: 0;
+    animation: idleFadeIn 0.5s ease-in forwards;
+    pointer-events: none;
+    z-index: 5;
+}
+
+#idle-dialogue-box.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+@keyframes idleFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 0.9;
+        transform: translateY(0);
+    }
+}
+
+#idle-text {
+    color: #ff69b4;
+    font-size: 14px;
+    line-height: 1.5;
+    font-style: italic;
+}
+
+#memory-purge-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #000;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 2s ease-in-out;
+}
+
+#memory-purge-overlay.active {
+    opacity: 1;
+}
+
+#memory-purge-overlay.hidden {
+    display: none;
+}
+
+#memory-purge-content {
+    color: #e0e0ff;
+    font-size: 48px;
+    font-weight: bold;
+    letter-spacing: 3px;
+    text-align: center;
+    animation: memoryPulse 1s ease-in-out infinite;
+}
+
+@keyframes memoryPulse {
+    0%, 100% {
+        opacity: 1;
+        text-shadow: 0 0 20px rgba(138, 43, 226, 0.6);
+    }
+    50% {
+        opacity: 0.7;
+        text-shadow: 0 0 40px rgba(138, 43, 226, 0.3);
+    }
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    #game-container {
+        padding: 20px;
+    }
+
+    #character-sprite {
+        max-width: 300px;
+        max-height: 400px;
+    }
+
+    #dialogue-box {
+        padding: 20px;
+    }
+
+    #dialogue-text {
+        font-size: 16px;
+    }
+
+    .dialogue-button {
+        padding: 12px 20px;
+        font-size: 14px;
+    }
+
+    #memory-purge-content {
+        font-size: 36px;
+    }
+}
+
+@media (max-width: 480px) {
+    #character-sprite {
+        max-width: 250px;
+        max-height: 350px;
+    }
+
+    #dialogue-box {
+        padding: 15px;
+    }
+
+    #dialogue-text {
+        font-size: 14px;
+    }
+
+    .dialogue-button {
+        padding: 10px 15px;
+        font-size: 12px;
+    }
+
+    #idle-dialogue-box {
+        max-width: 250px;
+    }
+
+    #memory-purge-content {
+        font-size: 28px;
+    }
+}
