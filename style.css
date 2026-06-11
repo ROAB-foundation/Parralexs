@@ -61,11 +61,12 @@ body {
     min-height: 300px;
 }
 
-#character-sprite {
-    max-width: 400px;
-    max-height: 500px;
+#parralexs {
+    max-height: 75vh;
     width: auto;
     height: auto;
+    object-fit: contain;
+    pointer-events: none;
     filter: drop-shadow(0 0 30px rgba(138, 43, 226, 0.5));
     animation: floating 5s ease-in-out infinite;
 }
@@ -167,15 +168,19 @@ body {
     padding: 15px 20px;
     max-width: 300px;
     backdrop-filter: blur(10px);
-    opacity: 0;
-    animation: idleFadeIn 0.5s ease-in forwards;
     pointer-events: none;
     z-index: 5;
+    transition: opacity 0.5s ease;
 }
 
 #idle-dialogue-box.hidden {
     opacity: 0;
     pointer-events: none;
+}
+
+#idle-dialogue-box:not(.hidden) {
+    opacity: 0.9;
+    animation: idleFadeIn 0.5s ease-in forwards;
 }
 
 @keyframes idleFadeIn {
@@ -245,9 +250,8 @@ body {
         padding: 20px;
     }
 
-    #character-sprite {
-        max-width: 300px;
-        max-height: 400px;
+    #parralexs {
+        max-height: 60vh;
     }
 
     #dialogue-box {
@@ -269,9 +273,8 @@ body {
 }
 
 @media (max-width: 480px) {
-    #character-sprite {
-        max-width: 250px;
-        max-height: 350px;
+    #parralexs {
+        max-height: 50vh;
     }
 
     #dialogue-box {
