@@ -2,17 +2,6 @@
 // PARRALEXS: AFTER THE RESET - Main Game Script
 // ============================================================================
 
-// Embedded sprite data URIs
-const spriteData = {
-    'neutral': 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjUwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iNDAwIiBoZWlnaHQ9IjUwMCIgZmlsbD0idHJhbnNwYXJlbnQiLz48ZWxsaXBzZSBjeD0iMjAwIiBjeT0iMjUwIiByeD0iMTUwIiByeT0iMjAwIiBmaWxsPSIjNzA3MDcwIi8+PHBvbHlnb24gcG9pbnRzPSIyMDAsMzUwIDEwMCw0NTAgMzAwLDQ1MCIgZmlsbD0iIzcwNzA3MCIvPjxlbGxpcHNlIGN4PSIyMDAiIGN5PSIxMjAiIHJ4PSI2MCIgcnk9IjcwIiBmaWxsPSIjNzA3MDcwIi8+PHBvbHlnb24gcG9pbnRzPSI1MCw4MCAxMDAsMjAwIDMwMCwyMDAgMzUwLDgwIiBmaWxsPSIjQ0MzMzMzIi8+PGNpcmNsZSBjeD0iMzAwIiBjeT0iMTAwIiByPSI0MCIgZmlsbD0iI0NDMzMzMyIvPjxlbGxpcHNlIGN4PSIyMDAiIGN5PSI5MCIgcng9IjM1IiByeT0iNDUiIGZpbGw9IiMzMzMzMzMiLz48cmVjdCB4PSI5MCIgeT0iMTQwIiB3aWR0aD0iMjIwIiBoZWlnaHQ9IjEyMCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjNjY2NkZGIiBzdHJva2Utd2lkdGg9IjMiLz48cGF0aCBkPSJNIDEyMCAxNDAgTCAyODAgMjYwIiBzdHJva2U9IiM2NjY2RkYiIHN0cm9rZS13aWR0aD0iMiIgZmlsbD0ibm9uZSIvPjxwYXRoIGQ9Ik0gMjgwIDE0MCBMIDEyMCAyNjAiIHN0cm9rZT0iIzY2NjZGRiIgc3Ryb2tlLXdpZHRoPSIyIiBmaWxsPSJub25lIi8+PC9zdmc+',
-    'thinking': 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjUwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iNDAwIiBoZWlnaHQ9IjUwMCIgZmlsbD0idHJhbnNwYXJlbnQiLz48ZWxsaXBzZSBjeD0iMjAwIiBjeT0iMjUwIiByeD0iMTUwIiByeT0iMjAwIiBmaWxsPSIjNzA3MDcwIi8+PHBvbHlnb24gcG9pbnRzPSIyMDAsMzUwIDEwMCw0NTAgMzAwLDQ1MCIgZmlsbD0iIzcwNzA3MCIvPjxlbGxpcHNlIGN4PSIyMDAiIGN5PSIxMjAiIHJ4PSI2MCIgcnk9IjcwIiBmaWxsPSIjNzA3MDcwIi8+PHBvbHlnb24gcG9pbnRzPSI1MCw4MCAxMDAsMjAwIDMwMCwyMDAgMzUwLDgwIiBmaWxsPSIjQ0MzMzMzIi8+PGNpcmNsZSBjeD0iMzAwIiBjeT0iMTAwIiByPSI0MCIgZmlsbD0iI0NDMzMzMyIvPjxlbGxpcHNlIGN4PSIyMDAiIGN5PSI5MCIgcng9IjM1IiByeT0iNDUiIGZpbGw9IiMzMzMzMzMiLz48cmVjdCB4PSI5MCIgeT0iMTQwIiB3aWR0aD0iMjIwIiBoZWlnaHQ9IjEyMCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjNjY2NkZGIiBzdHJva2Utd2lkdGg9IjMiLz48cGF0aCBkPSJNIDEyMCAxNDAgTCAyODAgMjYwIiBzdHJva2U9IiM2NjY2RkYiIHN0cm9rZS13aWR0aD0iMiIgZmlsbD0ibm9uZSIvPjxwYXRoIGQ9Ik0gMjgwIDE0MCBMIDEyMCAyNjAiIHN0cm9rZT0iIzY2NjZGRiIgc3Ryb2tlLXdpZHRoPSIyIiBmaWxsPSJub25lIi8+PHBhdGggZD0iTSAyMDAgODAgUQAyMDAgNzAgMjEwIDcwIiBzdHJva2U9IiMzMzMzMzMiIHN0cm9rZS13aWR0aD0iMyIgZmlsbD0ibm9uZSIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+PC9zdmc+',
-    'happy': 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjUwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iNDAwIiBoZWlnaHQ9IjUwMCIgZmlsbD0idHJhbnNwYXJlbnQiLz48ZWxsaXBzZSBjeD0iMjAwIiBjeT0iMjUwIiByeD0iMTUwIiByeT0iMjAwIiBmaWxsPSIjNzA3MDcwIi8+PHBvbHlnb24gcG9pbnRzPSIyMDAsMzUwIDEwMCw0NTAgMzAwLDQ1MCIgZmlsbD0iIzcwNzA3MCIvPjxlbGxpcHNlIGN4PSIyMDAiIGN5PSIxMjAiIHJ4PSI2MCIgcnk9IjcwIiBmaWxsPSIjNzA3MDcwIi8+PHBvbHlnb24gcG9pbnRzPSI1MCw4MCAxMDAsMjAwIDMwMCwyMDAgMzUwLDgwIiBmaWxsPSIjQ0MzMzMzIi8+PGNpcmNsZSBjeD0iMzAwIiBjeT0iMTAwIiByPSI0MCIgZmlsbD0iI0NDMzMzMyIvPjxlbGxpcHNlIGN4PSIyMDAiIGN5PSI5MCIgcng9IjM1IiByeT0iNDUiIGZpbGw9IiMzMzMzMzMiLz48cmVjdCB4PSI5MCIgeT0iMTQwIiB3aWR0aD0iMjIwIiBoZWlnaHQ9IjEyMCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjNjY2NkZGIiBzdHJva2Utd2lkdGg9IjMiLz48cGF0aCBkPSJNIDEyMCAxNDAgTCAyODAgMjYwIiBzdHJva2U9IiM2NjY2RkYiIHN0cm9rZS13aWR0aD0iMiIgZmlsbD0ibm9uZSIvPjxwYXRoIGQ9Ik0gMjgwIDE0MCBMIDEyMCAyNjAiIHN0cm9rZT0iIzY2NjZGRiIgc3Ryb2tlLXdpZHRoPSIyIiBmaWxsPSJub25lIi8+PHBhdGggZD0iTSAxODAgOTAgUQAgMTgwIDcwIDE5MCA2MCBMMjEwIDYwIFEgMjIwIDcwIDIyMCA5MCIgc3Ryb2tlPSIjMzMzMzMzIiBzdHJva2Utd2lkdGg9IjIuNSIgZmlsbD0ibm9uZSIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIi8+PGNpcmNsZSBjeD0iMzMwIiBjeT0iNjAiIHI9IjE1IiBmaWxsPSIjRkZGRjAwIi8+PC9zdmc+',
-    'blushing': 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjUwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iNDAwIiBoZWlnaHQ9IjUwMCIgZmlsbD0idHJhbnNwYXJlbnQiLz48ZWxsaXBzZSBjeD0iMjAwIiBjeT0iMjUwIiByeD0iMTUwIiByeT0iMjAwIiBmaWxsPSIjNzA3MDcwIi8+PHBvbHlnb24gcG9pbnRzPSIyMDAsMzUwIDEwMCw0NTAgMzAwLDQ1MCIgZmlsbD0iIzcwNzA3MCIvPjxlbGxpcHNlIGN4PSIyMDAiIGN5PSIxMjAiIHJ4PSI2MCIgcnk9IjcwIiBmaWxsPSIjNzA3MDcwIi8+PHBvbHlnb24gcG9pbnRzPSI1MCw4MCAxMDAsMjAwIDMwMCwyMDAgMzUwLDgwIiBmaWxsPSIjQ0MzMzMzIi8+PGNpcmNsZSBjeD0iMzAwIiBjeT0iMTAwIiByPSI0MCIgZmlsbD0iI0NDMzMzMyIvPjxlbGxpcHNlIGN4PSIyMDAiIGN5PSI5MCIgcng9IjM1IiByeT0iNDUiIGZpbGw9IiMzMzMzMzMiLz48cmVjdCB4PSI5MCIgeT0iMTQwIiB3aWR0aD0iMjIwIiBoZWlnaHQ9IjEyMCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjNjY2NkZGIiBzdHJva2Utd2lkdGg9IjMiLz48cGF0aCBkPSJNIDEyMCAxNDAgTCAyODAgMjYwIiBzdHJva2U9IiM2NjY2RkYiIHN0cm9rZS13aWR0aD0iMiIgZmlsbD0ibm9uZSIvPjxwYXRoIGQ9Ik0gMjgwIDE0MCBMIDEyMCAyNjAiIHN0cm9rZT0iIzY2NjZGRiIgc3Ryb2tlLXdpZHRoPSIyIiBmaWxsPSJub25lIi8+PGNpcmNsZSBjeD0iMzMwIiBjeT0iNzAiIHI9IjE1IiBmaWxsPSIjRkYzM0ZGIi8+PGNpcmNsZSBjeD0iMzMwIiBjeT0iNDUiIHI9IjEwIiBmaWxsPSIjRkYzNEZGIi8+PC9zdmc+',
-    'concerned': 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjUwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iNDAwIiBoZWlnaHQ9IjUwMCIgZmlsbD0idHJhbnNwYXJlbnQiLz48ZWxsaXBzZSBjeD0iMjAwIiBjeT0iMjUwIiByeD0iMTUwIiByeT0iMjAwIiBmaWxsPSIjNzA3MDcwIi8+PHBvbHlnb24gcG9pbnRzPSIyMDAsMzUwIDEwMCw0NTAgMzAwLDQ1MCIgZmlsbD0iIzcwNzA3MCIvPjxlbGxpcHNlIGN4PSIyMDAiIGN5PSIxMjAiIHJ4PSI2MCIgcnk9IjcwIiBmaWxsPSIjNzA3MDcwIi8+PHBvbHlnb24gcG9pbnRzPSI1MCw4MCAxMDAsMjAwIDMwMCwyMDAgMzUwLDgwIiBmaWxsPSIjQ0MzMzMzIi8+PGNpcmNsZSBjeD0iMzAwIiBjeT0iMTAwIiByPSI0MCIgZmlsbD0iI0NDMzMzMyIvPjxlbGxpcHNlIGN4PSIyMDAiIGN5PSI5MCIgcng9IjM1IiByeT0iNDUiIGZpbGw9IiMzMzMzMzMiLz48cmVjdCB4PSI5MCIgeT0iMTQwIiB3aWR0aD0iMjIwIiBoZWlnaHQ9IjEyMCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjNjY2NkZGIiBzdHJva2Utd2lkdGg9IjMiLz48cGF0aCBkPSJNIDEyMCAxNDAgTCAyODAgMjYwIiBzdHJva2U9IiM2NjY2RkYiIHN0cm9rZS13aWR0aD0iMiIgZmlsbD0ibm9uZSIvPjxwYXRoIGQ9Ik0gMjgwIDE0MCBMIDEyMCAyNjAiIHN0cm9rZT0iIzY2NjZGRiIgc3Ryb2tlLXdpZHRoPSIyIiBmaWxsPSJub25lIi8+PHBhdGggZD0iTSAxODAgOTAgUQAgMTgwIDEwMCAxOTAgMTA1IFEgMjAwIDEwNSAyMTAgMTAwIFEgMjIwIDk1IDIyMCA4MCIgc3Ryb2tlPSIjMzMzMzMzIiBzdHJva2Utd2lkdGg9IjIuNSIgZmlsbD0ibm9uZSIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIi8+PC9zdmc+',
-    'newton': 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjUwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iNDAwIiBoZWlnaHQ9IjUwMCIgZmlsbD0idHJhbnNwYXJlbnQiLz48ZWxsaXBzZSBjeD0iMjAwIiBjeT0iMjUwIiByeD0iMTUwIiByeT0iMjAwIiBmaWxsPSIjNzA3MDcwIi8+PHBvbHlnb24gcG9pbnRzPSIyMDAsMzUwIDEwMCw0NTAgMzAwLDQ1MCIgZmlsbD0iIzcwNzA3MCIvPjxlbGxpcHNlIGN4PSIyMDAiIGN5PSIxMjAiIHJ4PSI2MCIgcnk9IjcwIiBmaWxsPSIjNzA3MDcwIi8+PHBvbHlnb24gcG9pbnRzPSI1MCw4MCAxMDAsMjAwIDMwMCwyMDAgMzUwLDgwIiBmaWxsPSIjQ0MzMzMzIi8+PGNpcmNsZSBjeD0iMzAwIiBjeT0iMTAwIiByPSI0MCIgZmlsbD0iI0NDMzMzMyIvPjxlbGxpcHNlIGN4PSIyMDAiIGN5PSI5MCIgcng9IjM1IiByeT0iNDUiIGZpbGw9IiMzMzMzMzMiLz48cmVjdCB4PSI5MCIgeT0iMTQwIiB3aWR0aD0iMjIwIiBoZWlnaHQ9IjEyMCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjNjY2NkZGIiBzdHJva2Utd2lkdGg9IjMiLz48cGF0aCBkPSJNIDEyMCAxNDAgTCAyODAgMjYwIiBzdHJva2U9IiM2NjY2RkYiIHN0cm9rZS13aWR0aD0iMiIgZmlsbD0ibm9uZSIvPjxwYXRoIGQ9Ik0gMjgwIDE0MCBMIDEyMCAyNjAiIHN0cm9rZT0iIzY2NjZGRiIgc3Ryb2tlLXdpZHRoPSIyIiBmaWxsPSJub25lIi8+PHBhdGggZD0iTSAxOTAgODAgUSAxOTAgNjAgMjAwIDUwIFEgMjEwIDYwIDIxMCA4MCIgc3Ryb2tlPSIjMzMzMzMzIiBzdHJva2Utd2lkdGg9IjMiIGZpbGw9Im5vbmUiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPjwvc3ZnPg==',
-    'memorypurge': 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjUwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iNDAwIiBoZWlnaHQ9IjUwMCIgZmlsbD0idHJhbnNwYXJlbnQiLz48ZWxsaXBzZSBjeD0iMjAwIiBjeT0iMjUwIiByeD0iMTUwIiByeT0iMjAwIiBmaWxsPSIjNzA3MDcwIiBvcGFjaXR5PSIwLjYiLz48cG9seWdvbiBwb2ludHM9IjIwMCwzNTAgMTAwLDQ1MCAzMDAsNDUwIiBmaWxsPSIjNzA3MDcwIiBvcGFjaXR5PSIwLjYiLz48ZWxsaXBzZSBjeD0iMjAwIiBjeT0iMTIwIiByeD0iNjAiIHJ5PSI3MCIgZmlsbD0iIzcwNzA3MCIgb3BhY2l0eT0iMC42Ii8+PHBvbHlnb24gcG9pbnRzPSI1MCw4MCAxMDAsMjAwIDMwMCwyMDAgMzUwLDgwIiBmaWxsPSIjQ0MzMzMzIi8+PGNpcmNsZSBjeD0iMzAwIiBjeT0iMTAwIiByPSI0MCIgZmlsbD0iI0NDMzMzMyIvPjxlbGxpcHNlIGN4PSIyMDAiIGN5PSI5MCIgcng9IjM1IiByeT0iNDUiIGZpbGw9IiMzMzMzMzMiLz48cmVjdCB4PSI5MCIgeT0iMTQwIiB3aWR0aD0iMjIwIiBoZWlnaHQ9IjEyMCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjNjY2NkZGIiBzdHJva2Utd2lkdGg9IjMiIG9wYWNpdHk9IjAuNCIvPjxwYXRoIGQ9Ik0gMTIwIDE0MCBMIDI4MCAyNjAiIHN0cm9rZT0iIzY2NjZGRiIgc3Ryb2tlLXdpZHRoPSIyIiBmaWxsPSJub25lIiBvcGFjaXR5PSIwLjQiLz48cGF0aCBkPSJNIDI4MCAxNDAgTCAxMjAgMjYwIiBzdHJva2U9IiM2NjY2RkYiIHN0cm9rZS13aWR0aD0iMiIgZmlsbD0ibm9uZSIgb3BhY2l0eT0iMC40Ii8+PC9zdmc+'
-};
-
 // Game State
 const gameState = {
     currentStage: 1,
@@ -246,16 +235,21 @@ function getAvailableQuestions() {
 // SPRITE SYSTEM
 // ============================================================================
 
+function setSprite(spriteName) {
+    const parralexs = document.getElementById('parralexs');
+    parralexs.src = 'assets/' + spriteName + '.png';
+    gameState.currentSprite = spriteName;
+}
+
 function changeSpriteWithAnimation(newSprite) {
     if (newSprite === gameState.currentSprite) return;
     
-    const sprite = document.getElementById('character-sprite');
-    sprite.style.opacity = '0.5';
+    const parralexs = document.getElementById('parralexs');
+    parralexs.style.opacity = '0.5';
     
     setTimeout(() => {
-        sprite.src = spriteData[newSprite];
-        sprite.style.opacity = '1';
-        gameState.currentSprite = newSprite;
+        setSprite(newSprite);
+        parralexs.style.opacity = '1';
     }, 150);
 }
 
@@ -371,6 +365,7 @@ function triggerMemoryPurge() {
     canvas.style.opacity = '0';
     
     document.getElementById('galaxy-bg').style.opacity = '0';
+    document.getElementById('parralexs').style.opacity = '0';
     
     // Show memory purge screen
     overlay.classList.remove('hidden');
@@ -382,14 +377,15 @@ function triggerMemoryPurge() {
     setTimeout(() => {
         dialogueBox.style.opacity = '1';
         document.getElementById('dialogue-text').textContent = '"We may never meet again."\n\n"But I will save you the trouble."';
-        changeSpriteWithAnimation('memorypurge');
+        document.getElementById('parralexs').style.opacity = '1';
+        setSprite('memorypurge');
     }, 1000);
     
     // Fade to black
     setTimeout(() => {
         overlay.style.background = '#000';
         dialogueBox.style.opacity = '0';
-        document.getElementById('character-sprite').style.opacity = '0';
+        document.getElementById('parralexs').style.opacity = '0';
         
         gameState.memoryPurged = true;
         saveGameState();
@@ -514,7 +510,7 @@ class ParticleSystem {
 // ============================================================================
 
 function initCursorTracking() {
-    const sprite = document.getElementById('character-sprite');
+    const parralexs = document.getElementById('parralexs');
     
     document.addEventListener('mousemove', (e) => {
         gameState.mouseX = e.clientX;
@@ -526,7 +522,7 @@ function initCursorTracking() {
         const deltaX = (gameState.mouseX - centerX) / (centerX / 20);
         const deltaY = (gameState.mouseY - centerY) / (centerY / 10);
         
-        sprite.style.transform = `translateY(${Math.max(-20, Math.min(20, deltaY))}px) translateX(${Math.max(-20, Math.min(20, deltaX))}px)`;
+        parralexs.style.transform = `translateY(${Math.max(-20, Math.min(20, deltaY))}px) translateX(${Math.max(-20, Math.min(20, deltaX))}px)`;
     });
 }
 
@@ -554,10 +550,10 @@ function init() {
     document.getElementById('dialogue-text').textContent = '"Welcome. It is nice to meet you."';
     renderButtons();
     
-    // Set up sprite image handling
-    const sprite = document.getElementById('character-sprite');
-    sprite.src = spriteData['neutral'];
-    sprite.style.transition = 'opacity 0.3s ease';
+    // Set up sprite image
+    const parralexs = document.getElementById('parralexs');
+    parralexs.src = 'assets/neutral.png';
+    parralexs.style.transition = 'opacity 0.3s ease';
 }
 
 // Start game when DOM is ready
